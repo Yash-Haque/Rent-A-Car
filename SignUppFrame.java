@@ -57,9 +57,6 @@ public class SignUppFrame extends JFrame implements ActionListener{
 	//Next Button
 	JButton next = new JButton("Next");
 	
-	//Or
-	JLabel or = new JLabel("OR");
-	
 	//Back Button
 	JButton back = new JButton("Back");
 	
@@ -77,6 +74,7 @@ public class SignUppFrame extends JFrame implements ActionListener{
 		
 		
 		initialise();
+		addActionEvent();
 	}
 	
 	
@@ -178,7 +176,7 @@ public class SignUppFrame extends JFrame implements ActionListener{
 		password.setToolTipText("Password should be atleast 8 characters long.");
 		password.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		container.add(password);
-		String pass = password.getText();
+
 		
 		//Show Password
 		checkBox.setBounds(300, 365, 20, 20);
@@ -186,18 +184,6 @@ public class SignUppFrame extends JFrame implements ActionListener{
 		checkBox.setBackground(Color.gray);
 		checkBox.setToolTipText("Show Password");
 		container.add(checkBox);
-		checkBox.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				password.getPassword();
-				password.setEchoChar((char) 0);
-//			else 
-//				userPassField.setEchoChar((char) 1);
-
-				//Couldn't Implement the turn off feature to Password Show.
-			}
-		});
 		
 		//Confirm Password 
 		cPLabel.setBounds(42, 396, 312, 37);
@@ -211,15 +197,16 @@ public class SignUppFrame extends JFrame implements ActionListener{
 		confirmPass.setToolTipText(" Rewrite the same password again to verify.");
 		confirmPass.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		container.add(confirmPass);
-		String confirm = confirmPass.getText();
+
 		confirmPass.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 			
-				if(confirmPass.getText().equals(password.getText())) {
-					
+				if(Arrays.equals(password.getPassword(), confirmPass.getPassword())) {
+					//File IO
 			}
 				else {
+					
 					JOptionPane.showMessageDialog(null, "The password and Confirm Password does not match");
 				}
 				}
@@ -236,56 +223,39 @@ public class SignUppFrame extends JFrame implements ActionListener{
 		tcCheck.setBackground(Color.DARK_GRAY);
 		tcCheck.setToolTipText("Show Password");
 		container.add(tcCheck);
-		tcCheck.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-//			else 
-//				userPassField.setEchoChar((char) 1);
-
-				//Couldn't Implement the turn off feature to Password Show.
-			}
-		});		
 		
 		//Next Button
-		next.setBounds(145, 522, 97, 26);
+		next.setBounds(253, 550, 97, 26);
 		next.setHorizontalTextPosition(SwingConstants.CENTER);
 		next.setVerticalTextPosition(SwingConstants.CENTER);
+		next.setAlignmentX(CENTER_ALIGNMENT);
 		next.setBackground(new Color(50, 205, 50));
 		next.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		container.add(next);
+		
 		next.addActionListener(new ActionListener() {
 			
-			
-			//PROBLEM!!!
 			public void actionPerformed(ActionEvent e) {
-				if(firstName.getText().contains("") || lastName.getText().contains("") || email.getText().contains("") || password.getText().contains("") || confirmPass.getText().contains("")) {
-					JOptionPane.showMessageDialog(null, "Please fill in all of the blank spaces.");
+				if(firstName.getText().contains("") || lastName.getText().contains("") || email.getText().contains("")) {
+					if((password.getPassword().length == 0) || (confirmPass.getPassword().length == 0))
+						JOptionPane.showMessageDialog(null, "Please fill in all of the blank spaces.");
 				}
 				else {
 					dispose();
-					CustomerrFrame customer = new CustomerrFrame();
-					customer.setVisible(true);
+					CustomerrFrame cF = new CustomerrFrame();
+					cF.setVisible(true);
 				}
 			}
 		});
 		
 		
-
 		
-		
-		//Or
-		or.setBounds(95, 548, 192, 56);
-		or.setForeground(Color.LIGHT_GRAY);
-		or.setFont(new Font("Helvetica", Font.BOLD, 12));
-		or.setHorizontalAlignment(SwingConstants.CENTER);
-		container.add(or);
 		
 		//Back Button
-		back.setBounds(135, 600, 115, 29);
+		back.setBounds(40, 550, 97, 26);
 		back.setHorizontalTextPosition(SwingConstants.CENTER);
 		back.setVerticalTextPosition(SwingConstants.CENTER);
+		back.setAlignmentX(CENTER_ALIGNMENT);
 		back.setBackground(new Color(50, 205, 50));
 		back.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		container.add(back);
@@ -303,13 +273,46 @@ public class SignUppFrame extends JFrame implements ActionListener{
 //				JOptionPane.showMessageDialog(null, "Invalid Username or Password. Please consider signing up.");
 //			
 //		});
-//		
-//		
+//	
+
 	}
 	
+	
+	public void addActionEvent() {
+		//next.addActionListener(this);
+		back.addActionListener(this);
+		checkBox.addActionListener(this);
+		tcCheck.addActionListener(this);
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+//		if(e.getSource() == next) {
+//			if(fN.contains("") || lastName.getText().contains("") || email.getText().contains("")) {
+//				JOptionPane.showMessageDialog(null, "Please fill in all of the blank spaces.");
+//			}
+//			else {
+//				dispose();
+//				CustomerrFrame customer = new CustomerrFrame();
+//				customer.setVisible(true);
+//			this.setVisible(false);
+//			CustomerrFrame cF = new CustomerrFrame();
+//			cF.setVisible(true);
+//		}
+		
+		if(e.getSource() == back) {
+			this.setVisible(false);
+			LoginFrame lF = new LoginFrame();
+			lF.setVisible(true);
+		}
+		
+		if(e.getSource() == checkBox) {
+			if(checkBox.isSelected())
+				password.setEchoChar((char)0);
+			else
+				password.setEchoChar((char) 8226); 
+		}
+		
 		
 	}
 	
