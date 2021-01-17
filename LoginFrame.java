@@ -58,7 +58,7 @@ public class LoginFrame extends JFrame implements ActionListener{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Closes the window when pressed x
 		this.setResizable(false); // makes the window unable to resize
 		
-		this.setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\Eclipse\\Project\\Car Rental\\src\\e5b21f3d-b41d-4d88-a2cf-72739501c4c4_200x200(2).png")); // sets image icon
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\Eclipse\\Project\\Car Rental\\src\\yash-01.png")); // sets image icon
 		
 		
 		Initialise(); //Custom method to Initiate all of the design methods.
