@@ -18,7 +18,7 @@ public class CustomerrFrame extends JFrame implements ActionListener{
 
 	//Window Tip
 	JLabel tip = new JLabel("Just a little bit more...");
-	JLabel tip1 = new JLabel("Please fill up this form to complete your SIgn Up process.");
+	JLabel tip1 = new JLabel("Please fill up this form to complete your Sign Up process.");
 	
 	JLabel line = new JLabel("____________________________________________________________");
 	
@@ -32,7 +32,7 @@ public class CustomerrFrame extends JFrame implements ActionListener{
 	
 	//Gender
 	JLabel gender = new JLabel("Gender");
-	JComboBox genderBox = new JComboBox();
+	JComboBox genderBox;
 	
 	//Contact/ Phone Number
 	JLabel contact = new JLabel("Phone Number");
@@ -40,17 +40,25 @@ public class CustomerrFrame extends JFrame implements ActionListener{
 	
 	//Status
 	JLabel status = new JLabel("Status");
-	JComboBox statBox = new JComboBox();
+	JComboBox statBox;
 	
 	//Address
 	JLabel address = new JLabel("Address");
 	JTextField addTxtField = new JTextField();
 
+	JLabel birth = new JLabel("Date of Birth");
+	
+	//Birth Date
+	JComboBox birthDate;
+	
+	//Birth Month
+	JComboBox birthMonth;
+	
+	//Birth Year
+	JComboBox birthYear;
+	
 	//Next Button
 	JButton next = new JButton("Next");
-	
-	//Or	
-	JLabel or = new JLabel("OR");
 	
 	//Back
 	JButton back = new JButton("Back");
@@ -67,6 +75,7 @@ public class CustomerrFrame extends JFrame implements ActionListener{
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\\\Eclipse\\\\Project\\\\Car Rental\\\\src\\\\e5b21f3d-b41d-4d88-a2cf-72739501c4c4_200x200(2).png"));
 	
 		initialise();
+		addActionEvent();
 	}
 	
 	public void initialise() {
@@ -105,17 +114,14 @@ public class CustomerrFrame extends JFrame implements ActionListener{
 		gender.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		container.add(gender);
 		
+		String[] genderr = {"M", "F"};
+		genderBox = new JComboBox(genderr);
 		genderBox.setBounds(42, 137, 100, 37);
 		genderBox.setForeground(Color.white);
 		genderBox.setBackground(Color.gray);
 		genderBox.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		container.add(genderBox);
 		
-		genderBox.addItem(new ComboItem("Male", "Value 1"));
-		genderBox.addItem(new ComboItem("Female", "Value 2"));
-		genderBox.addItem(new ComboItem("Transgender", "Value 3"));
-		genderBox.addItem(new ComboItem("Other", "Value 4"));
-
 		//Status
 		status.setBounds(42, 180, 250, 37);
 		status.setForeground(Color.white);
@@ -123,15 +129,13 @@ public class CustomerrFrame extends JFrame implements ActionListener{
 		status.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		container.add(status);
 		
+		String[] stat = {"S", "M"};
+		statBox = new JComboBox(stat);
 		statBox.setBounds(42, 217, 100, 37);
 		statBox.setForeground(Color.white);
 		statBox.setBackground(Color.gray);
 		statBox.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		container.add(statBox);
-		
-		statBox.addItem(new ComboItem("Single", "Value 1"));
-		statBox.addItem(new ComboItem("Married", "Value 2"));
-		statBox.addItem(new ComboItem("Other", "Value 3"));
 		
 		//Contact
 		contact.setBounds(42, 254, 300, 37);
@@ -144,6 +148,7 @@ public class CustomerrFrame extends JFrame implements ActionListener{
 		phnNumber.setBackground(Color.gray);
 		phnNumber.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		container.add(phnNumber);
+		String c = phnNumber.getText();
 		
 		//Address
 		address.setBounds(42, 328, 300, 37);
@@ -156,71 +161,165 @@ public class CustomerrFrame extends JFrame implements ActionListener{
 		addTxtField.setBackground(Color.gray);
 		addTxtField.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		container.add(addTxtField);
+		String add = addTxtField.getText();
+		
+		//DOB Label
+		birth.setBounds(42, 402, 312, 37);
+		birth.setForeground(Color.white);
+		birth.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		container.add(birth);
+		
+		//Birth Date
+		Integer[] date = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
+		birthDate = new JComboBox(date);
+		birthDate.setBounds(42, 439, 60, 25);
+		birthDate.setForeground(Color.white);
+		birthDate.setBackground(Color.gray);
+		birthDate.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		container.add(birthDate);
+		
+		//Birth Month
+		String[] month = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+		birthMonth = new JComboBox(month);
+		birthMonth.setBounds(112, 439, 60, 25);
+		birthMonth.setForeground(Color.white);
+		birthMonth.setBackground(Color.gray);
+		birthMonth.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		container.add(birthMonth);
+		
+		//Birth Year
+		Integer[] year = {1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980,
+				1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990,
+				1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000,
+				2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
+				2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020};
+		birthYear = new JComboBox(year);
+		birthYear.setBounds(182, 439, 60, 25);
+		birthYear.setForeground(Color.white);
+		birthYear.setBackground(Color.gray);
+		birthYear.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		container.add(birthYear);
+		
+		//Birthday Checker
+		
+		
+		
 		
 		//Next Button
-		next.setBounds(145, 439, 97, 26);
+		next.setBounds(253, 550, 97, 26);
 		next.setHorizontalTextPosition(SwingConstants.CENTER);
 		next.setVerticalTextPosition(SwingConstants.CENTER);
+		next.setAlignmentX(CENTER_ALIGNMENT);
 		next.setBackground(new Color(50, 205, 50));
 		next.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		container.add(next);
-		
-		//Or
-		or.setBounds(95, 476, 192, 56);
-		or.setForeground(Color.LIGHT_GRAY);
-		or.setFont(new Font("Helvetica", Font.BOLD, 12));
-		or.setHorizontalAlignment(SwingConstants.CENTER);
-		container.add(or);
+		Checker ch = new Checker();
+		ch.checker(c, add);
+		next.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean check = ch.checker(c, add);
+				if(check == false) {
+					JOptionPane.showMessageDialog(null,"Please fill in the blank spaces");
+				}
+				else {
+					dispose();
+					LoginFrame lF = new LoginFrame();
+					lF.setVisible(true);
+				}
+			}
+			
+		}
+			
+		);
 		
 		//Back Button
-		back.setBounds(135, 550, 115, 29);
+		back.setBounds(40, 550, 97, 26);
 		back.setHorizontalTextPosition(SwingConstants.CENTER);
 		back.setVerticalTextPosition(SwingConstants.CENTER);
+		back.setAlignmentX(CENTER_ALIGNMENT);
 		back.setBackground(new Color(50, 205, 50));
 		back.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		container.add(back);
 
 	}
+	
+	public void addActionEvent() {
+		genderBox.addActionListener(this);
+		statBox.addActionListener(this);
+		birthDate.addActionListener(this);
+		birthMonth.addActionListener(this);
+		birthYear.addActionListener(this);
+//		next.addActionListener(this);
+		back.addActionListener(this);
+	}
+	
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getSource() == genderBox) {
+			String g = (String)genderBox.getSelectedItem();
+			
+		}
+		
+		if(e.getSource() == statBox) {
+			String s = (String)statBox.getSelectedItem();
+			
+		}
+		
+		if(e.getSource() == birthDate) {
+			int bD = (int)birthDate.getSelectedItem();
+			
+		}
+		
+		if(e.getSource() == birthMonth) {
+			String bM = (String)birthMonth.getSelectedItem();
+			
+		}
+		
+		if(e.getSource() == birthYear) {
+			int bY = (int)birthYear.getSelectedItem();
+			
+		}
+		
+		
+		if(e.getSource() == back) {
+			this.setVisible(false);
+			SignUppFrame sF = new SignUppFrame();
+			sF.setVisible(true);
+		}
 		
 	}
 	
-
+class Checker{
+	private String contact; 
+	private String address;
+	
+	public void Checker() {
+		
+		this.contact = "";
+		this.address = "";
+	}
+	
+	public String getContact() {
+		
+		return this.contact;
+	}
+	
+	public String getAddress() {
+		
+		return this.address;
+	}
+	
+	public boolean checker(String c, String a) {
+		this.contact = c;
+		this.address = a;
+		
+		if(this.contact == "" || this.address == "") 
+			return false;
+		else
+			return true;
+	}
 }
 
-class ComboItem1
-{
-    private String key;
-    private String value;
-
-    public ComboItem1(String key, String value)
-    {
-        this.key = key;
-        this.value = value;
-    }
-
-    @Override
-    public String toString()
-    {
-       
-    	return key;
-    }
-
-    public String getKey()
-    {
-       
-    	return key;
-    }
-
-    public String getValue()
-    {
-        
-    	return value;
-    }
-    
-    //For when you get the item
-    //Object item = comboBox.getSelectedItem();
-    //String value = ((ComboItem1)item).getValue();
 }
