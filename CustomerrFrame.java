@@ -13,7 +13,11 @@ public class CustomerrFrame extends JFrame implements ActionListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	String path = "Customer.txt";
+	
+	
+	
 	JLabel appLabel = new JLabel("Registration");
 
 	//Window Tip
@@ -213,24 +217,7 @@ public class CustomerrFrame extends JFrame implements ActionListener{
 		next.setBackground(new Color(50, 205, 50));
 		next.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		container.add(next);
-		Checker ch = new Checker();
-		ch.checker(c, add);
-		next.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				boolean check = ch.checker(c, add);
-				if(check == false) {
-					JOptionPane.showMessageDialog(null,"Please fill in the blank spaces");
-				}
-				else {
-					dispose();
-					LoginFrame lF = new LoginFrame();
-					lF.setVisible(true);
-				}
-			}
-			
-		}
-			
-		);
+
 		
 		//Back Button
 		back.setBounds(40, 550, 97, 26);
@@ -249,7 +236,7 @@ public class CustomerrFrame extends JFrame implements ActionListener{
 		birthDate.addActionListener(this);
 		birthMonth.addActionListener(this);
 		birthYear.addActionListener(this);
-//		next.addActionListener(this);
+		next.addActionListener(this);
 		back.addActionListener(this);
 	}
 	
@@ -282,6 +269,41 @@ public class CustomerrFrame extends JFrame implements ActionListener{
 			
 		}
 		
+		if(e.getSource() == next) {
+			try {
+				
+				SignUppFrame s = new SignUppFrame();
+				String firstName, lastName, email, password, gender, status, location, contact;
+				
+
+				gender = (String)genderBox.getEditor().getItem();
+				status = (String)statBox.getEditor().getItem();
+				contact = phnNumber.getText();
+				location = addTxtField.getText();
+				
+				FileWriter write = new FileWriter("CustomerInfo.txt",true);
+				write.write(gender + " " + status + " " + contact + " " + location + "\n");
+				write.close();
+				
+				
+//				FileWriter write = new FileWriter(path, true);
+//				write.write(genderBox.getEditor().getItem()+" "+(String)statBox.getEditor().getItem()+" "+phnNumber.getText()+" "+addTxtField.getText()+" "+(int)birthDate.getEditor().getItem()+" "+(String)birthMonth.getEditor().getItem()+" "+(int)birthYear.getEditor().getItem()+"\n");
+//				write.close();
+				JOptionPane.showMessageDialog(null, "Successfully Registered! Please Login to continue...","Confirmation", JOptionPane.WARNING_MESSAGE);
+				dispose();
+				LoginFrame c = new LoginFrame();
+				c.setVisible(true);
+				
+			}
+			catch (IOException ep) {
+			      System.out.println("ERROR 404! File-Not-Found");
+			      ep.printStackTrace();
+			    }
+			catch (ClassCastException ex) {
+				System.out.println("ERROR 404! Please Sign-Up again using a new ID and password.");
+			}
+		}
+		
 		
 		if(e.getSource() == back) {
 			this.setVisible(false);
@@ -291,35 +313,8 @@ public class CustomerrFrame extends JFrame implements ActionListener{
 		
 	}
 	
-class Checker{
-	private String contact; 
-	private String address;
 	
-	public void Checker() {
-		
-		this.contact = "";
-		this.address = "";
-	}
 	
-	public String getContact() {
-		
-		return this.contact;
-	}
 	
-	public String getAddress() {
-		
-		return this.address;
-	}
 	
-	public boolean checker(String c, String a) {
-		this.contact = c;
-		this.address = a;
-		
-		if(this.contact == "" || this.address == "") 
-			return false;
-		else
-			return true;
-	}
-}
-
 }
