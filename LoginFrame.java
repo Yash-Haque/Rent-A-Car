@@ -7,314 +7,264 @@ import java.awt.event.ActionListener;
 
 import java.io.*;
 
-public class CustomerrFrame extends JFrame implements ActionListener{
-	
+public class LoginFrame extends JFrame implements ActionListener{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	String path = "Customer.txt";
-	
-	
-	
-	JLabel appLabel = new JLabel("Registration");
 
-	//Window Tip
-	JLabel tip = new JLabel("Just a little bit more...");
-	JLabel tip1 = new JLabel("Please fill up this form to complete your Sign Up process.");
+	//Application Label
+	JLabel appLabel = new JLabel("Rent And Run");
 	
-	JLabel line = new JLabel("____________________________________________________________");
+	//OR Design
+	JLabel or = new JLabel("Haven't Singed In?");
 	
-//	//First Name
-//	JLabel fN = new JLabel("First Name");
-//	JTextField firstName = new JTextField();
-//	
-//	//Last Name
-//	JLabel lN = new JLabel("Last Name");
-//	JTextField lastName = new JTextField();
+	//Enter Username Label
+	JLabel usernameLabel = new JLabel("Enter Username");
 	
-	//Gender
-	JLabel gender = new JLabel("Gender");
-	JComboBox genderBox;
+	//Text Field
+	JTextField userTextField = new JTextField();
 	
-	//Contact/ Phone Number
-	JLabel contact = new JLabel("Phone Number");
-	JTextField phnNumber = new JTextField();
+	//Enter Password Label
+	JLabel passwordLabel = new JLabel("Enter Password");
+	//Password Field
+	JPasswordField userPassField = new JPasswordField();
 	
-	//Status
-	JLabel status = new JLabel("Status");
-	JComboBox statBox;
+	//CheckBox for Show Password
+	JCheckBox showPass = new JCheckBox("Show Password");
 	
-	//Address
-	JLabel address = new JLabel("Address");
-	JTextField addTxtField = new JTextField();
-
-	JLabel birth = new JLabel("Date of Birth");
-	
-	//Birth Date
-	JComboBox birthDate;
-	
-	//Birth Month
-	JComboBox birthMonth;
-	
-	//Birth Year
-	JComboBox birthYear;
-	
-	//Next Button
-	JButton next = new JButton("Next");
-	
-	//Back
-	JButton back = new JButton("Back");
+	//Button for Login
+	JButton loginButton = new JButton("Login");
 	
 	
+	//Button for Registration
+	JButton registrationButton = new JButton("Sign Up");
+	
+	
+	//So in order to write content on top of the window i.e. the frame, we initialise a container.
+			//All of the content work starting from background color to what features will be implemented
+			//(that is added through components), everything is done in this container.
+			
+			//The advantage of using containers over panels is that when we close a container, all of the 
+			// components inside the container will close at once. But, if it is a panel then all of the 
+			// panels need to be closed separately (individually).
+			
 	Container container = getContentPane();
 	
-	CustomerrFrame(){
+	LoginFrame(){
 		
-		this.setTitle("Rent And Run");
-		this.setBounds(500, 50, 400, 650); 
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-		this.setResizable(false);
-		this.setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\\\Eclipse\\\\Project\\\\Car Rental\\\\src\\\\e5b21f3d-b41d-4d88-a2cf-72739501c4c4_200x200(2).png"));
-	
-		initialise();
-		addActionEvent();
+		this.setTitle("Rent And Run"); // sets title
+		this.setBounds(500, 100, 400, 600); //setBounds (int XAxis, int YAxis, int width, int height) 
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Closes the window when pressed x
+		this.setResizable(false); // makes the window unable to resize
+		
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\Eclipse\\Project\\Car Rental\\src\\yash-01.png")); // sets image icon
+		
+		
+		Initialise(); //Custom method to Initiate all of the design methods.
+		//403740 For Circle
+		// 69b04a For Car And Name
+		
+		
 	}
 	
-	public void initialise() {
+	public void Initialise() {
 		
-		//Container Layout + Background
-		container.setLayout(null);
-		container.setBackground(Color.DARK_GRAY);
+		//Container Layout
+		container.setLayout(null); //The Container has multiple inbuilt layout, setting the layout
+		//to null means there will be no previously built layouts set on your container
+		container.setBackground(Color.darkGray); //sets the Background Color of the container.
+		//new Color(25, 20, 20)
 		
 		//Label Design
-		appLabel.setBounds(5, 0, 300, 50);
-		appLabel.setForeground(new Color(50, 205, 50)); 
-		appLabel.setFont(new Font("Helvetica", Font.PLAIN, 20));
-		appLabel.setAlignmentX(TOP_ALIGNMENT); 
-		container.add(appLabel);
+		appLabel.setBounds(92, 82, 192, 56); // Sets Location and Size of the Label.
+		appLabel.setForeground(new Color(50, 205, 50)); //Sets Text Color.
+		appLabel.setFont(new Font("Helvetica", Font.BOLD, 27)); // setFont(new Font("Text_Type", Text_Characteristic, Text_Size)
+		appLabel.setHorizontalAlignment(SwingConstants.CENTER); //Sets Text Alignment
+		container.add(appLabel); //Adds the Label Component to the OCntainer
 		
-		//Tip Design
-		tip.setBounds( 5, 50, 312, 18);
-		tip.setForeground(Color.WHITE);
-		tip.setFont(new Font("Helvetica", Font.PLAIN, 12));
-		container.add(tip);
+		//Username Label
+		usernameLabel.setBounds(42, 148, 312, 37);
+		usernameLabel.setForeground(Color.white);
+		usernameLabel.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		container.add(usernameLabel);
 		
-		tip1.setBounds( 5, 69, 400, 18);
-		tip1.setForeground(Color.WHITE);
-		tip1.setFont(new Font("Helvetica", Font.PLAIN, 12));
-		container.add(tip1);
+		//Text Field
+		userTextField.setBounds(42, 185, 312, 37);
+		userTextField.setForeground(Color.white);
+		userTextField.setBackground(Color.gray);
+		userTextField.setToolTipText("Tip: Try something unique!");
+		userTextField.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		container.add(userTextField);
 		
-		//Line
-		line.setBounds(0, 75, 400, 19);
-		line.setForeground(Color.WHITE);
-		line.setFont(new Font("Helvetica", Font.PLAIN, 12));
-		container.add(line);
+		//Password Label
+		passwordLabel.setBounds(40, 221, 314, 37);
+		passwordLabel.setForeground(Color.white);
+		passwordLabel.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		container.add(passwordLabel);
 		
-		//Gender
-		gender.setBounds(42, 100, 100, 37);
-		gender.setForeground(Color.white);
-		gender.setFont(new Font("Helvetica", Font.PLAIN, 14));
-		container.add(gender);
+		//Password Field
+		userPassField.setBounds(40, 258, 314, 37);
+		userPassField.setForeground(Color.white);
+		userPassField.setBackground(Color.gray);
+		userPassField.setToolTipText("Enter Password");
+		userPassField.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		container.add(userPassField);
+		userPassField.addActionListener(this);
 		
-		String[] genderr = {"M", "F"};
-		genderBox = new JComboBox(genderr);
-		genderBox.setBounds(42, 137, 100, 37);
-		genderBox.setForeground(Color.white);
-		genderBox.setBackground(Color.gray);
-		genderBox.setFont(new Font("Helvetica", Font.PLAIN, 14));
-		container.add(genderBox);
-		
-		//Status
-		status.setBounds(42, 180, 250, 37);
-		status.setForeground(Color.white);
-		status.setBackground(Color.DARK_GRAY);
-		status.setFont(new Font("Helvetica", Font.PLAIN, 14));
-		container.add(status);
-		
-		String[] stat = {"S", "M"};
-		statBox = new JComboBox(stat);
-		statBox.setBounds(42, 217, 100, 37);
-		statBox.setForeground(Color.white);
-		statBox.setBackground(Color.gray);
-		statBox.setFont(new Font("Helvetica", Font.PLAIN, 14));
-		container.add(statBox);
-		
-		//Contact
-		contact.setBounds(42, 254, 300, 37);
-		contact.setForeground(Color.white);
-		contact.setFont(new Font("Helvetica", Font.PLAIN, 14));
-		container.add(contact);
-		
-		phnNumber.setBounds(42, 291, 300, 37);
-		phnNumber.setForeground(Color.white);
-		phnNumber.setBackground(Color.gray);
-		phnNumber.setFont(new Font("Helvetica", Font.PLAIN, 14));
-		container.add(phnNumber);
-		String c = phnNumber.getText();
-		
-		//Address
-		address.setBounds(42, 328, 300, 37);
-		address.setForeground(Color.white);
-		address.setFont(new Font("Helvetica", Font.PLAIN, 14));
-		container.add(address);	
-		
-		addTxtField.setBounds(42, 365, 320, 37);
-		addTxtField.setForeground(Color.white);
-		addTxtField.setBackground(Color.gray);
-		addTxtField.setFont(new Font("Helvetica", Font.PLAIN, 14));
-		container.add(addTxtField);
-		String add = addTxtField.getText();
-		
-		//DOB Label
-		birth.setBounds(42, 402, 312, 37);
-		birth.setForeground(Color.white);
-		birth.setFont(new Font("Helvetica", Font.PLAIN, 14));
-		container.add(birth);
-		
-		//Birth Date
-		Integer[] date = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
-		birthDate = new JComboBox(date);
-		birthDate.setBounds(42, 439, 60, 25);
-		birthDate.setForeground(Color.white);
-		birthDate.setBackground(Color.gray);
-		birthDate.setFont(new Font("Helvetica", Font.PLAIN, 14));
-		container.add(birthDate);
-		
-		//Birth Month
-		String[] month = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-		birthMonth = new JComboBox(month);
-		birthMonth.setBounds(112, 439, 60, 25);
-		birthMonth.setForeground(Color.white);
-		birthMonth.setBackground(Color.gray);
-		birthMonth.setFont(new Font("Helvetica", Font.PLAIN, 14));
-		container.add(birthMonth);
-		
-		//Birth Year
-		Integer[] year = {1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980,
-				1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990,
-				1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000,
-				2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
-				2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020};
-		birthYear = new JComboBox(year);
-		birthYear.setBounds(182, 439, 60, 25);
-		birthYear.setForeground(Color.white);
-		birthYear.setBackground(Color.gray);
-		birthYear.setFont(new Font("Helvetica", Font.PLAIN, 14));
-		container.add(birthYear);
-		
-		//Birthday Checker
-		
-		
-		
-		
-		//Next Button
-		next.setBounds(253, 550, 97, 26);
-		next.setHorizontalTextPosition(SwingConstants.CENTER);
-		next.setVerticalTextPosition(SwingConstants.CENTER);
-		next.setAlignmentX(CENTER_ALIGNMENT);
-		next.setBackground(new Color(50, 205, 50));
-		next.setFont(new Font("Helvetica", Font.PLAIN, 14));
-		container.add(next);
+		//Show Password
+		showPass.setBounds(360, 267, 20, 20);
+		showPass.setForeground(Color.white);
+		showPass.setBackground(Color.gray);
+		showPass.setToolTipText("Show Password");
+		container.add(showPass);
+		showPass.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				userPassField.getPassword();
+				userPassField.setEchoChar((char) 0);
+//			else 
+//				userPassField.setEchoChar((char) 1);
 
+				//Couldn't Implement the turn off feature to Password Show.
+			}
+		});
 		
-		//Back Button
-		back.setBounds(40, 550, 97, 26);
-		back.setHorizontalTextPosition(SwingConstants.CENTER);
-		back.setVerticalTextPosition(SwingConstants.CENTER);
-		back.setAlignmentX(CENTER_ALIGNMENT);
-		back.setBackground(new Color(50, 205, 50));
-		back.setFont(new Font("Helvetica", Font.PLAIN, 14));
-		container.add(back);
+		//Login Button
+		loginButton.setBounds(145, 354, 97, 26);
+		loginButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		loginButton.setVerticalTextPosition(SwingConstants.CENTER);
+		loginButton.setBackground(new Color(50, 205, 50));
+		loginButton.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		container.add(loginButton);
+		loginButton.addActionListener(this);
+//		loginButton.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				
+//			if(userTextField.getText().equals("admin") && userPassField.getText().equals("123")) {
+//				JOptionPane.showMessageDialog(null, "You Have Successfully logged in");
+//				dispose();
+//				CarFrame cF = new CarFrame();
+//				cF.setVisible(true);
+//				
+//				
+//			}
+//			else
+//				JOptionPane.showMessageDialog(null, "Invalid Username or Password. Please consider signing up.");
+//
+//			}
+//		});
+		
+		//OR Design
+		or.setForeground(Color.LIGHT_GRAY);
+		or.setBounds(95, 400, 192, 56);
+		or.setFont(new Font("Helvetica", Font.BOLD, 12));
+		or.setHorizontalAlignment(SwingConstants.CENTER);
+		container.add(or);
+		
+		//SignUp-Registration Button
+		registrationButton.setBounds(135, 490, 115, 29);
+		registrationButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		registrationButton.setVerticalTextPosition(SwingConstants.CENTER);
+		registrationButton.setBackground(new Color(50, 205, 50));
+		registrationButton.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		container.add(registrationButton);
+		registrationButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				dispose();
+				SignUppFrame signUp = new SignUppFrame();
+				signUp.setVisible(true);
+				
+			}
+		});
+	
 
-	}
-	
-	public void addActionEvent() {
-		genderBox.addActionListener(this);
-		statBox.addActionListener(this);
-		birthDate.addActionListener(this);
-		birthMonth.addActionListener(this);
-		birthYear.addActionListener(this);
-		next.addActionListener(this);
-		back.addActionListener(this);
-	}
-	
-	
-	
+//
+//
+//	}
+
+}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == genderBox) {
-			String g = (String)genderBox.getSelectedItem();
+		if(e.getSource() == loginButton) {
 			
-		}
-		
-		if(e.getSource() == statBox) {
-			String s = (String)statBox.getSelectedItem();
+			String userText;
+			String passText;
 			
-		}
-		
-		if(e.getSource() == birthDate) {
-			int bD = (int)birthDate.getSelectedItem();
+			userText = userTextField.getText();
+			passText = userPassField.getText();
 			
-		}
-		
-		if(e.getSource() == birthMonth) {
-			String bM = (String)birthMonth.getSelectedItem();
 			
-		}
-		
-		if(e.getSource() == birthYear) {
-			int bY = (int)birthYear.getSelectedItem();
-			
-		}
-		
-		if(e.getSource() == next) {
 			try {
+				String path = "User.txt";
 				
-				SignUppFrame s = new SignUppFrame();
-				String firstName, lastName, email, password, gender, status, location, contact;
+				//Scanner get = new Scanner(new File(path));
 				
-
-				gender = (String)genderBox.getEditor().getItem();
-				status = (String)statBox.getEditor().getItem();
-				contact = phnNumber.getText();
-				location = addTxtField.getText();
-				
-				FileWriter write = new FileWriter("CustomerInfo.txt",true);
-				write.write(gender + " " + status + " " + contact + " " + location + "\n");
-				write.close();
-				
-				
-//				FileWriter write = new FileWriter(path, true);
-//				write.write(genderBox.getEditor().getItem()+" "+(String)statBox.getEditor().getItem()+" "+phnNumber.getText()+" "+addTxtField.getText()+" "+(int)birthDate.getEditor().getItem()+" "+(String)birthMonth.getEditor().getItem()+" "+(int)birthYear.getEditor().getItem()+"\n");
-//				write.close();
-				JOptionPane.showMessageDialog(null, "Successfully Registered! Please Login to continue...","Confirmation", JOptionPane.WARNING_MESSAGE);
-				dispose();
-				LoginFrame c = new LoginFrame();
-				c.setVisible(true);
+				FileReader fr = new FileReader(path);
+	            BufferedReader br = new BufferedReader(fr);
+	            
+	            boolean isLoginSuccess = false,isfromNSU=false;
+	            int u=0;
+	            String line, userEmail, fpass, userID;
+	            
+	            
+	            //while ((line = get.nextLine()) != null)
+	            while((line = br.readLine()) != null)
+	            {	
+	            	userEmail = line.split(" ")[2];
+	                fpass = line.split(" ")[3];
+	                
+	                userID = userEmail.split("@")[0];
+	                //System.out.println(fuserID);
+	                
+	                if(userEmail.split("@")[1].equalsIgnoreCase("northsouth.edu"))
+	                {
+	                	isfromNSU = true;
+	                }
+	                
+	                
+	                if ((userID.equalsIgnoreCase(userText) || userEmail.equalsIgnoreCase(userText)) && fpass.equalsIgnoreCase(passText)) {
+	                	isLoginSuccess = true;
+	                	
+	                	this.setVisible(false);
+		                
+	                	ReservationDateFrame dashboard = new ReservationDateFrame();
+		                dashboard.setVisible(true);
+	    				
+		                break;
+	                }
+	                else if(userID.equalsIgnoreCase(userText) || userEmail.equalsIgnoreCase(userText))
+	                {
+	                	u++;
+	                }    
+	            }
+	            if(!isLoginSuccess)
+	            {
+	            	if(u>0)
+	            	{
+	            		JOptionPane.showMessageDialog(null, "Invalid Password!", "WARNING!!", JOptionPane.WARNING_MESSAGE);
+	            	}
+	            	else
+	            	{
+	            		JOptionPane.showMessageDialog(null, "Invalid User!", "WARNING!!", JOptionPane.WARNING_MESSAGE);
+	            	}
+	            }
+	            
+	            fr.close();
+	            //get.close();
 				
 			}
-			catch (IOException ep) {
-			      System.out.println("ERROR 404! File-Not-Found");
-			      ep.printStackTrace();
-			    }
-			catch (ClassCastException ex) {
-				System.out.println("ERROR 404! Please Sign-Up again using a new ID and password.");
-			}
-		}
-		
-		
-		if(e.getSource() == back) {
-			this.setVisible(false);
-			SignUppFrame sF = new SignUppFrame();
-			sF.setVisible(true);
+			catch (Exception ep) {
+				System.out.println("ERROR 404! File-Not-Found");
+	            //ep.printStackTrace();
+	        }
+        }
 		}
 		
 	}
-	
-	
-	
-	
-	
-}
