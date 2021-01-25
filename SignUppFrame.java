@@ -9,10 +9,9 @@ import java.io.*;
 
 
 public class SignUppFrame extends JFrame implements ActionListener{
-
-	/**
-	 * 
-	 */
+	
+	String path = "User.txt";
+	
 	private static final long serialVersionUID = 1L;
 
 	//Application Label
@@ -129,19 +128,19 @@ public class SignUppFrame extends JFrame implements ActionListener{
 		container.add(lastName);
 		String lN = lastName.getText();
 		
-		//Username
-		user.setBounds(42, 174, 180, 37);
-		user.setForeground(Color.WHITE);
-		user.setFont(new Font("Helvetica", Font.PLAIN, 14));
-		container.add(user);
-		
-		userTxtField.setBounds(42, 211, 300, 37);
-		userTxtField.setToolTipText("Try something unique.");
-		userTxtField.setForeground(Color.white);
-		userTxtField.setBackground(Color.gray);
-		userTxtField.setFont(new Font("Helvetica", Font.PLAIN, 14));
-		container.add(userTxtField);
-		String usrTxtField = userTxtField.getText();
+//		//Username
+//		user.setBounds(42, 174, 180, 37);
+//		user.setForeground(Color.WHITE);
+//		user.setFont(new Font("Helvetica", Font.PLAIN, 14));
+//		container.add(user);
+//		
+//		userTxtField.setBounds(42, 211, 300, 37);
+//		userTxtField.setToolTipText("Try something unique.");
+//		userTxtField.setForeground(Color.white);
+//		userTxtField.setBackground(Color.gray);
+//		userTxtField.setFont(new Font("Helvetica", Font.PLAIN, 14));
+//		container.add(userTxtField);
+//		String usrTxtField = userTxtField.getText();
 		
 		//Email
 		emailLabel.setBounds(42, 248, 180, 37);
@@ -155,14 +154,14 @@ public class SignUppFrame extends JFrame implements ActionListener{
 		email.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		container.add(email);
 		String emaill = email.getText();
-		email.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(email.getText().contains("@") == false || email.getText().contains(".") == false)
-					JOptionPane.showMessageDialog(null, "Invalid Email");
-			}
-		});
-		
+//		email.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				if(email.getText().contains("@") == false || email.getText().contains(".") == false)
+//					JOptionPane.showMessageDialog(null, "Invalid Email");
+//			}
+//		});
+//		
 		//Password
 		passLabel.setBounds(42, 322, 312, 37);
 		passLabel.setForeground(Color.WHITE);
@@ -233,20 +232,20 @@ public class SignUppFrame extends JFrame implements ActionListener{
 		next.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		container.add(next);
 		
-		next.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				if(firstName.getText().contains("") || lastName.getText().contains("") || email.getText().contains("")) {
-					if((password.getPassword().length == 0) || (confirmPass.getPassword().length == 0))
-						JOptionPane.showMessageDialog(null, "Please fill in all of the blank spaces.");
-				}
-				else {
-					dispose();
-					CustomerrFrame cF = new CustomerrFrame();
-					cF.setVisible(true);
-				}
-			}
-		});
+//		next.addActionListener(new ActionListener() {
+//			
+//			public void actionPerformed(ActionEvent e) {
+//				if(firstName.getText().contains("") || lastName.getText().contains("") || email.getText().contains("")) {
+//					if((password.getPassword().length == 0) || (confirmPass.getPassword().length == 0))
+//						JOptionPane.showMessageDialog(null, "Please fill in all of the blank spaces.");
+//				}
+//				else {
+//					dispose();
+//					CustomerrFrame cF = new CustomerrFrame();
+//					cF.setVisible(true);
+//				}
+//			}
+//		});
 		
 		
 		
@@ -279,11 +278,55 @@ public class SignUppFrame extends JFrame implements ActionListener{
 	
 	
 	public void addActionEvent() {
-		//next.addActionListener(this);
+		next.addActionListener(this);
 		back.addActionListener(this);
 		checkBox.addActionListener(this);
 		tcCheck.addActionListener(this);
 	}
+	
+	public boolean check(String email)
+	{
+		String line;
+		try {
+			FileReader fr = new FileReader(path);
+	        BufferedReader br = new BufferedReader(fr);
+	        
+	        while ((line = br.readLine()) != null)
+	        {
+	        	if(email.split("@")[0].equalsIgnoreCase(line.split(" ")[2].split("@")[0]))
+	        	{
+	        		return true;
+	        	}
+	        }
+		}
+		catch (Exception ep) {
+			System.out.println("ERROR 404! File-Not-Found");
+            //ep.printStackTrace();
+        }
+		return false;
+	}
+	
+//	public boolean userCheck(String username)
+//	{
+//		String line;
+//		try {
+//			FileReader fr = new FileReader(path);
+//	        BufferedReader br = new BufferedReader(fr);
+//	        
+//	        while ((line = br.readLine()) != null)
+//	        {
+//	        	if(username.equalsIgnoreCase(line))
+//	        	{
+//	        		return true;
+//	        	}
+//	        }
+//		}
+//		catch (Exception ep) {
+//			System.out.println("ERROR 404! File-Not-Found");
+//            //ep.printStackTrace();
+//        }
+//		return false;
+//	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -311,6 +354,44 @@ public class SignUppFrame extends JFrame implements ActionListener{
 				password.setEchoChar((char)0);
 			else
 				password.setEchoChar((char) 8226); 
+		}
+		
+		if(e.getSource() == tcCheck) {
+			if(!(tcCheck.isSelected())) {
+				JOptionPane.showMessageDialog(null, "Please check out the Terms and Conditions.");
+			}
+		}
+		
+		if (e.getSource() == next) 
+		{
+			try
+			{
+				//Checks Email
+			      if(!check(email.getText())) //Checking ID textField
+			      {
+			    	  
+			    	  FileWriter myWriter = new FileWriter(path,true);
+			    	  myWriter.write(firstName.getText()+" "+lastName.getText()+" "+email.getText()+" "+password.getText()+"\n");
+				      myWriter.close();
+			    	  
+			    	  
+//			    	  FileWriter write = new FileWriter(path,true);
+//			    	  write.write(firstName.getText() + " " + lastName.getText() + " " + email.getText() + " " + password.getText() + " " );
+			    	  
+				      JOptionPane.showMessageDialog(null, "You Have Successfully Registered your Name and ID, please press ok to Continue","Confirmation", JOptionPane.WARNING_MESSAGE);
+				      CustomerrFrame c = new CustomerrFrame();
+				      this.setVisible(false);
+				      c.setVisible(true);
+			      }
+			      else
+			      {
+			    	  JOptionPane.showMessageDialog(null, "Username already in use!","Confirmation", JOptionPane.WARNING_MESSAGE);
+			      }
+			 }
+			catch (IOException ep) {
+			      System.out.println("ERROR 404! File-Not-Found");
+			      ep.printStackTrace();
+			    }
 		}
 		
 		
